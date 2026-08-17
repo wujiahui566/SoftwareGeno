@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "software-geno"
+version = "0.1.0"
+description = "Deterministic software-gene extraction and construction platform"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [{ name = "Geno contributors" }]
+dependencies = [
+  "pydantic>=2.10,<3",
+  "pymongo>=4.10,<5",
+  "typer>=0.15,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.14,<2",
+  "pytest>=8.3,<9",
+  "ruff>=0.9,<1",
+]
+
+[project.scripts]
+geno = "geno.cli.app:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/geno"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers -m 'not integration'"
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["integration: requires the Docker Compose MongoDB service"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "RUF", "SIM", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
+pretty = true
+show_error_codes = true
+warn_unreachable = true

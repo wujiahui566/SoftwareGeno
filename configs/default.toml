@@ -1,0 +1,10 @@
+[geno]
+mongodb_uri = "mongodb://localhost:27017"
+mongodb_database = "geno"
+workspace_directory = ".geno/workspace"
+repository_cache_directory = ".geno/repositories"
+temporary_directory = ".geno/tmp"
+maximum_worker_count = 4
+git_command_timeout_seconds = 120
+log_level = "INFO"
+fail_fast = false
